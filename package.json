@@ -1,0 +1,24 @@
+{
+  "name": "ichat-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "DEBUG=iChat:* node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-session": "^1.15.2",
+    "hbs": "~4.0.1",
+    "mongoose": "^4.9.8",
+    "morgan": "~1.8.1",
+    "node-sass-middleware": "0.9.8",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "serve-favicon": "~2.4.2",
+    "socket.io": "^1.7.3"
+  }
+}
