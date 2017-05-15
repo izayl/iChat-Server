@@ -16,12 +16,16 @@ io.on('connection', function (socket) {
     logger(ids)
   })
 
-  socket.on('sendToUser', function ({ content, toUser, fromUser }) {
-    console.log(fromUser + 'send to ', toUser)
-    socket.to(ids[toUser]).emit('receiveFromUser', {
-      content, toUser, fromUser,
+  socket.on('sendToUser', function (data) {
+    console.log(data.fromUser + 'send to ', data.toUser)
+    data = Object.assign({}, data, {
       time: +new Date()
     })
+    socket.to(ids[data.toUser]).emit('receiveFromUser', data)
+  })
+
+  socket.on('send', function (data) {
+    socket.broadcast.emit('message', data)
   })
 })
 
