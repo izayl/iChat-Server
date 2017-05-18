@@ -15,10 +15,12 @@ var userScheme = new monogoose.Schema({
     default: '这个人很懒，没有写下什么'
   },
   avatar: {
-    type: String,
+    type: Number,
     required: false,
-    enum: ["&#xe722;", "&#xe723;", "&#xe724;", "&#xe725;", "&#xe726;", "&#xe727;", "&#xe728;", "&#xe729;", "&#xe72a;", "&#xe72b;", "&#xe72c;", "&#xe72d;", "&#xe72e;", "&#xe72f;", "&#xe730;", "&#xe732;", "&#xe733;", "&#xe734;", "&#xe735;", "&#xe736;", "&#xe737;", "&#xe738;", "&#xe739;", "&#xe73a;", "&#xe73b;", "&#xe660;", "&#xe661;", "&#xe663;", "&#xe664;", "&#xe665;", "&#xe666;", "&#xe667;", "&#xe668;", "&#xe669;", "&#xe66a;", "&#xe66b;", "&#xe66c;", "&#xe66d;", "&#xe66e;", "&#xe66f;", "&#xe670;", "&#xe671;", "&#xe672;", "&#xe674;", "&#xe678;", "&#xe6df;"],
-    default: "&#xe722;"
+    default: Math.floor(Math.random() * 45)
+  },
+  friends: {
+    type: [monogoose.Schema.Types.Mixed]
   }
 });
 
@@ -40,4 +42,32 @@ module.exports.comparePassword = function (candidatePassword, hash, callback) {
 
 module.exports.getUserById = function (id, callback) {
   User.findById(id, callback);
+}
+
+module.exports.addFriend = function (id, myId, callback) {
+  User.findById(myId, function (err, user) {
+    if (err) {
+      callback(err)
+      return
+    }
+    if (user) {
+      User.findById(id, function (err, friend) {
+        if (err) {
+          callback(err)
+          return
+        }
+        if (friend) {
+          user.friends.push({
+            id: friend._id,
+            name: friend.username
+          })
+          callback()
+        } else {
+
+        }
+      })
+    } else {
+      callback('invalid User Id')
+    }
+  })
 }
