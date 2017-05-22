@@ -41,7 +41,8 @@ app.use(cookieParser());
 app.use(session({
   secret: "iChat",
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  name: "id"
 }));
 
 // Passport Init

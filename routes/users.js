@@ -46,7 +46,8 @@ router.post('/login', function(req, res, next) {
       res.cookie('_id', user._id)
       res.json(formatJson({
         userId: user._id,
-        avatar: user.avatar
+        avatar: user.avatar || 0,
+        username: user.username
       }));
     }
   })(req, res, next);
